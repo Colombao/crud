@@ -33,7 +33,11 @@
                             'Bom trabalho',
                             'Voce consegiu ',
                             'success'
-                        )
+                        ).then(function(result) {
+                            if (result.isConfirmed) {
+                                window.location.href = 'home.php'
+                            }
+                        })
                     },
                 })
                 return false;

@@ -1,12 +1,3 @@
-<?php
-
-$erro = isset($_GET['erro']) ? $_GET['erro'] : 0;
-
-
-
-
-?>
-
 
 <!doctype html>
 <html lang="en">
@@ -25,7 +16,6 @@ $erro = isset($_GET['erro']) ? $_GET['erro'] : 0;
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
 	<script type="text/javascript">
 		$(document).ready(function() {

@@ -5,7 +5,7 @@ session_start();
 require_once('db.php');
 
 $usuario = $_POST['usuario'];
-$senha = $_POST['senha'];
+$senha = md5($_POST['senha']);
 
 
 $sql = "SELECT * FROM usuarios where login = '$usuario' AND senha = '$senha' ";

@@ -8,7 +8,7 @@ require_once('db.php');
 
 $name = $_POST['usuario'];
 $email = $_POST['email'];
-$senha = $_POST['senha'];
+$senha = md5($_POST['senha']);
 
 
 $objDb = new db();
