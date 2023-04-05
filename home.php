@@ -14,21 +14,21 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center pt-3 pb-2">
             <h1 class="display-5 mb-4">Listar Usuários</h1>
-
+            <button type="button" class="btn btn-outline-danger btn-md" style="position: absolute; right: 117px; bottom: 617px;"><a href="index.php" , style="text-decoration: none; color:black;">Logout</a></button>
             <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#cadUsuarioModal">Cadastrar</button>
         </div>
+
 
         <span id="msgAlerta"></span>
 
         <table id="usuarios" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>Ações</th>
                     <th>Nome</th>
                     <th>Salario</th>
                     <th>Idade</th>
                     <th>id</th>
-
+                    <th>Ações</th>
                 </tr>
             </thead>
         </table>
@@ -65,6 +65,72 @@
                         </div>
 
                         <button type="submit" class="btn btn-outline-success btn-sm" value="Cadastrar">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="visUsuarioModal" tabindex="-1" aria-labelledby="visUsuarioModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="visUsuarioModalLabel">Detalhes do Usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">ID</dt>
+                        <dd class="col-sm-9"><span id="idUsuario"></span></dd>
+
+                        <dt class="col-sm-3">Nome</dt>
+                        <dd class="col-sm-9"><span id="nomeUsuario"></span></dd>
+
+                        <dt class="col-sm-3">Salário</dt>
+                        <dd class="col-sm-9"><span id="salarioUsuario"></span></dd>
+
+                        <dt class="col-sm-3">Idade</dt>
+                        <dd class="col-sm-9"><span id="idadeUsuario"></span></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editUsuarioModal" tabindex="-1" aria-labelledby="editUsuarioModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUsuarioModalLabel">Editar Usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span id="msgAlertErroEdit"></span>
+                    <form method="POST" id="form-edit-usuario">
+                        <input type="hidden" name="id" id="editid">
+
+                        <div class="row mb-3">
+                            <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="nome" class="form-control" id="editnome" placeholder="Nome completo">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="salario" class="col-sm-2 col-form-label">Salário</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="salario" class="form-control" id="editsalario" placeholder="Salário">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="idade" class="col-sm-2 col-form-label">Idade</label>
+                            <div class="col-sm-10">
+                                <input type="number" name="idade" class="form-control" id="editidade" placeholder="Idade">
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-outline-warning btn-sm" value="Salvar">Salvar</button>
                     </form>
                 </div>
             </div>
