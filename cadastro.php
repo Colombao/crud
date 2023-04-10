@@ -16,6 +16,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <link rel="stylesheet" type="text/css" href="//assets.locaweb.com.br/locastyle/2.0.6/stylesheets/locastyle.css">
+
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -29,18 +31,28 @@
                     type: "POST",
                     data: $('#cadastro_form').serialize(),
                     success: function(response) {
-                        Swal.fire(
-                            'Bom trabalho',
-                            'Voce consegiu ',
-                            'success'
-                        ).then(function(result) {
-                            if (result.isConfirmed) {
-                                window.location.href = 'home.php'
-                            }
-                        })
+                        console.log(response == 'Salvo com sucesso!');
+                        console.log(response, 'Salvo com sucesso!');
+                        if (response.includes("sucesso")) {
+                            Swal.fire(
+                                'Bom trabalho',
+                                response,
+                                'success'
+                            ).then(function(result) {
+                                if (result.isConfirmed) {
+                                    // window.location.href = 'home.php'
+                                }
+
+                            })
+                        } else {
+                            Swal.fire(
+                                'Pessimo trabalho',
+                                response,
+                                'error'
+                            )
+                        }
                     },
-                })
-                return false;
+                });
             });
 
 
@@ -70,6 +82,10 @@
                             </div>
                             <form type="post" action="" class="singup-form" id="cadastro_form">
                                 <div class="form-group mt-3">
+                                    <input type="text" class="form-control" name="nome" required>
+                                    <label class="form-control-placeholder" for="username">Nome Completo</label>
+                                </div>
+                                <div class="form-group mt-3">
                                     <input type="text" class="form-control" name="usuario" required>
                                     <label class="form-control-placeholder" for="username">Nome de usuário</label>
                                 </div>
@@ -82,6 +98,39 @@
                                     <label class="form-control-placeholder" for="password">Senha</label>
                                     <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
+                                <div class="form-group mt-3">
+                                    <input type="text" class="form-control cpf-mask" name="cpf" maxlength="11" required>
+                                    <label class="form-control-placeholder" for="cpf">Cpf</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control cep-mask" name="cep" required>
+                                    <label class="form-control-placeholder" for="cep">CEP</label>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input type="text" class="form-control" name="rua" required>
+                                    <label class="form-control-placeholder" for="rua">Rua</label>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input type="number" class="form-control" name="Numero" required>
+                                    <label class="form-control-placeholder" for="Numero">Numero da casa</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control cel-sp-mask" name="Telefone" required>
+                                    <label class="form-control-placeholder" for="telefone">Telefone</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="Bairro" required>
+                                    <label class="form-control-placeholder" for="Bairro">Bairro</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control date-mask" name="nascimento">
+                                    <label class="form-control-placeholder" for="nascimento">Data de nascimento</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="complemento">
+                                    <label class="form-control-placeholder" for="Complemento">Complemento</label>
+                                </div>
+
                                 <div class="form-group">
                                     <button type="submit" id="btn_cadastro" class="form-control btn btn-primary rounded submit px-3">
                                         Cadastrar
@@ -104,6 +153,10 @@
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="//assets.locaweb.com.br/locastyle/2.0.6/javascripts/locastyle.js"></script>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
 </body>
 

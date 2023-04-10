@@ -8,13 +8,14 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    
 
 
 <body>
     <div class="container">
         <div class="d-flex justify-content-between align-items-center pt-3 pb-2">
             <h1 class="display-5 mb-4">Listar Usuários</h1>
-            <button type="button" class="btn btn-outline-danger btn-md" style="position: absolute; right: 117px; bottom: 617px;"><a href="index.php" , style="text-decoration: none; color:black;">Logout</a></button>
+            <button type="button" class="btn btn-outline-danger btn-sm"><a href=" index.php" style=" text-decoration: none; color:black;">Logout</a></button>
             <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#cadUsuarioModal">Cadastrar</button>
         </div>
 
@@ -26,7 +27,7 @@
                 <tr>
                     <th>Nome</th>
                     <th>Salario</th>
-                    <th>Idade</th>
+                    <th>Nascimento</th>
                     <th>id</th>
                     <th>Ações</th>
                 </tr>
@@ -58,7 +59,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="idade" class="col-sm-2 col-form-label">Idade</label>
+                            <label for="idade" class="col-sm-2 col-form-label">Nascimento</label>
                             <div class="col-sm-10">
                                 <input type="number" name="idade" class="form-control" id="idade" placeholder="Idade">
                             </div>
@@ -88,7 +89,7 @@
                         <dt class="col-sm-3">Salário</dt>
                         <dd class="col-sm-9"><span id="salarioUsuario"></span></dd>
 
-                        <dt class="col-sm-3">Idade</dt>
+                        <dt class="col-sm-3">Nascimento</dt>
                         <dd class="col-sm-9"><span id="idadeUsuario"></span></dd>
                     </dl>
                 </div>
@@ -123,7 +124,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="idade" class="col-sm-2 col-form-label">Idade</label>
+                            <label for="idade" class="col-sm-2 col-form-label">Nascimento</label>
                             <div class="col-sm-10">
                                 <input type="number" name="idade" class="form-control" id="editidade" placeholder="Idade">
                             </div>

@@ -8,7 +8,7 @@ $usuario = $_POST['usuario'];
 $senha = md5($_POST['senha']);
 
 
-$sql = "SELECT * FROM usuarios where login = '$usuario' AND senha = '$senha' ";
+$sql = "SELECT * FROM datatables where login = '$usuario' AND senha = '$senha' ";
 
 $objDb = new db();
 $link = $objDb->conecta_mysql();
