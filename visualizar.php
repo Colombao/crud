@@ -7,7 +7,7 @@ $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
 
 
 if (!empty($id)) {
-    $query_usuario = "SELECT id, nome, salario, idade FROM datatables WHERE id=:id LIMIT 1";
+    $query_usuario = "SELECT id, nome, email, Telefone, cep, cpf, Rua, Numero, Bairro, Nascimento, complemento FROM datatables WHERE id=:id LIMIT 1";
     $result_usuario = $conn->prepare($query_usuario);
     $result_usuario->bindParam(':id', $id);
     $result_usuario->execute();

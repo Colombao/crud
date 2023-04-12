@@ -2,28 +2,20 @@
 
 session_start();
 
-require_once('db.php');
+include_once "conexao.php";
 
-$usuario = $_POST['usuario'];
+extract($_POST);
 $senha = md5($_POST['senha']);
+$login = $conn->prepare("SELECT * FROM datatables where Login = '$usuario' AND Senha = '$senha' ");
 
+$login->execute();
+if ($login->rowCount()) {
 
-$sql = "SELECT * FROM datatables where login = '$usuario' AND senha = '$senha' ";
+    $result = $login->fetch(PDO::FETCH_ASSOC);
 
-$objDb = new db();
-$link = $objDb->conecta_mysql();
-
-$resultado_id = mysqli_query($link, $sql);
-
-if ($resultado_id) {
-    $dados = mysqli_fetch_array($resultado_id);
-    if (isset($dados['login'])) {
-
-        $_SESSION['login'] = $dados['login'];
-        $_SESSION['email'] = $dados['email'];
-        echo 'usuario existe';
-    } else {
-    }
+    $_SESSION['login'] = $result['Login'];
+    $_SESSION['email'] = $result['email'];
+    echo 'usuario existe';
 } else {
     echo 'Erro bd';
 }

@@ -1,4 +1,3 @@
-
  $(document).ready(function() {
      $('#usuarios').DataTable({
          "processing": true,
@@ -45,8 +44,14 @@ async function visualizar(id) {
 
         document.getElementById("idUsuario").innerHTML = resposta['dados'].id;
         document.getElementById("nomeUsuario").innerHTML = resposta['dados'].nome;
-        document.getElementById("salarioUsuario").innerHTML = resposta['dados'].salario;
-        document.getElementById("idadeUsuario").innerHTML = resposta['dados'].idade;
+        document.getElementById("emailUsuario").innerHTML = resposta['dados'].email;
+        document.getElementById("telefoneUsuario").innerHTML = resposta['dados'].Telefone;
+        document.getElementById("cepUsuario").innerHTML = resposta['dados'].cep;
+        document.getElementById("cpfUsuario").innerHTML = resposta['dados'].cpf;
+        document.getElementById("numeroUsuario").innerHTML = resposta['dados'].Numero;
+        document.getElementById("bairroUsuario").innerHTML = resposta['dados'].Bairro;
+        document.getElementById("nascimentoUsuario").innerHTML = resposta['dados'].Nascimento;
+        document.getElementById("complementoUsuario").innerHTML = resposta['dados'].complemento;
 
         document.getElementById("msgAlerta").innerHTML = "";
     } else {
@@ -55,7 +60,7 @@ async function visualizar(id) {
 }
 
 const editModal = new bootstrap.Modal(document.getElementById("editUsuarioModal"));
-async function editar(id) {
+async function editUsuario(id) {
 
     const dados = await fetch('visualizar.php?id=' + id);
     const resposta = await dados.json();
@@ -69,8 +74,15 @@ async function editar(id) {
 
         document.getElementById("editid").value = resposta['dados'].id;
         document.getElementById("editnome").value = resposta['dados'].nome;
-        document.getElementById("editsalario").value = resposta['dados'].salario;
-        document.getElementById("editidade").value = resposta['dados'].idade;
+        document.getElementById("editemail").value = resposta['dados'].email;
+        document.getElementById("editnascimento").value = resposta['dados'].Nascimento;
+        document.getElementById("editcpf").value = resposta['dados'].cpf;
+        document.getElementById("editcep").value = resposta['dados'].Cep;
+        // document.getElementById("editrua").value = resposta['dados'].Rua;
+        // document.getElementById("editbairro").value = resposta['dados'].Bairro;
+        document.getElementById("edittelefone").value = resposta['dados'].Telefone;
+        document.getElementById("editcomplemento").value = resposta['dados'].complemento;
+        document.getElementById("editnumero").value = resposta['dados'].Numero;
     } else {
         document.getElementById("msgAlerta").innerHTML = resposta['msg'];
         console.log(resposta);
@@ -110,7 +122,7 @@ if (formEditUser) {
     });
 }
 
-async function deletar(id) {
+async function apagarUsuario(id) {
 
     var confirmar = confirm("Tem certeza que deseja excluir o registro selecionado?");
 

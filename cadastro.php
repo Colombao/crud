@@ -21,6 +21,21 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
+            $('#cep').keyup(function() {
+                if ($('#cep').val().length == 9) {
+                    $.ajax({
+                        url: `http://viacep.com.br/ws/${ $('#cep').val()}/json/`,
+                        type: "GET",
+                        success: function(data) {
+                            $("#rua").val(data.logradouro);
+                            $("#complemento").val(data.complemento);
+                            $("#bairro").val(data.bairro);
+                        }
+                    })
+                }
+            })
+
+
             $('#cadastro_form').on("submit", function(event) {
 
                 event.preventDefault();
@@ -31,8 +46,6 @@
                     type: "POST",
                     data: $('#cadastro_form').serialize(),
                     success: function(response) {
-                        console.log(response == 'Salvo com sucesso!');
-                        console.log(response, 'Salvo com sucesso!');
                         if (response.includes("sucesso")) {
                             Swal.fire(
                                 'Bom trabalho',
@@ -40,7 +53,7 @@
                                 'success'
                             ).then(function(result) {
                                 if (result.isConfirmed) {
-                                    // window.location.href = 'home.php'
+                                    window.location.href = 'index.php'
                                 }
 
                             })
@@ -103,32 +116,32 @@
                                     <label class="form-control-placeholder" for="cpf">Cpf</label>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control cep-mask" name="cep" required>
+                                    <input type="text" class="form-control cep-mask" name="cep" id="cep" required>
                                     <label class="form-control-placeholder" for="cep">CEP</label>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <input type="text" class="form-control" name="rua" required>
+                                    <input type="text" class="form-control" name="rua" id="rua" required>
                                     <label class="form-control-placeholder" for="rua">Rua</label>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <input type="number" class="form-control" name="Numero" required>
+                                    <input type="number" class="form-control" name="Numero" id="numero" required>
                                     <label class="form-control-placeholder" for="Numero">Numero da casa</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="Bairro" id="bairro" required>
+                                    <label class="form-control-placeholder" for="Bairro">Bairro</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="complemento">
+                                    <label class="form-control-placeholder" for="Complemento">Complemento</label>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control cel-sp-mask" name="Telefone" required>
                                     <label class="form-control-placeholder" for="telefone">Telefone</label>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="Bairro" required>
-                                    <label class="form-control-placeholder" for="Bairro">Bairro</label>
-                                </div>
-                                <div class="form-group">
                                     <input type="text" class="form-control date-mask" name="nascimento">
                                     <label class="form-control-placeholder" for="nascimento">Data de nascimento</label>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="complemento">
-                                    <label class="form-control-placeholder" for="Complemento">Complemento</label>
                                 </div>
 
                                 <div class="form-group">

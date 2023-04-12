@@ -47,7 +47,9 @@
 								'Tente novamente',
 								'Login e ou senha incorretos ',
 								'error'
+
 							)
+							console.log(response);
 						}
 
 					},
