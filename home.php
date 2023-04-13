@@ -8,6 +8,7 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 <body>
@@ -17,6 +18,7 @@
             <div class="float-right">
                 <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#cadUsuarioModal">Cadastrar</button>
                 <button type="button" class="btn btn-outline-danger btn-sm"><a href=" index.php" style=" text-decoration: none; color:black;">Logout</a></button>
+                <a href=" perfil.php" style=" text-decoration: none; color:black;"><button type="button" class="btn btn-outline-info btn-sm">Criar perfil</button></a>
             </div>
         </div>
     </div>
@@ -258,7 +260,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-outline-warning btn-sm" value="Salvar">Salvar</button>
+                        <button type="submit" class="btn btn-outline-warning btn-sm" value="Salvar" id="salvaredit">Salvar</button>
                     </form>
                 </div>
             </div>
@@ -275,42 +277,40 @@
     <script>
         $(document).ready(function() {
 
-                    $('.Cpf').mask('000.000.000-00', {
-                        reverse: true
-                    });
-                    $('.Telefone').mask('(00) 00000-0000');
-                    $('.Cep').mask('00000-000');
-                    $('.Nascimento').mask('00/00/0000');
+            $('.Cpf').mask('000.000.000-00', {
+                reverse: true
+            });
+            $('.Telefone').mask('(00) 00000-0000');
+            $('.Cep').mask('00000-000');
+            $('.Nascimento').mask('00/00/0000');
 
-                    $('#CepCad').keyup(function() {
-                        if ($('#CepCad').val().length == 9) {
-                            $.ajax({
-                                url: `http://viacep.com.br/ws/${ $('#CepCad').val()}/json/`,
-                                type: "GET",
-                                success: function(data) {
-                                    $("#RuaCad").val(data.logradouro);
-                                    $("#ComplementoCad").val(data.complemento);
-                                    $("#BairroCad").val(data.bairro);
-                                }
-                            })
+            $('#CepCad').keyup(function() {
+                if ($('#CepCad').val().length == 9) {
+                    $.ajax({
+                        url: `http://viacep.com.br/ws/${ $('#CepCad').val()}/json/`,
+                        type: "GET",
+                        success: function(data) {
+                            $("#RuaCad").val(data.logradouro);
+                            $("#ComplementoCad").val(data.complemento);
+                            $("#BairroCad").val(data.bairro);
                         }
                     })
-                    $('#editcep').keyup(function() {
-                            if ($('#editcep ').val().length == 9) {
-                                    $.ajax({
-                                        url: `http://viacep.com.br/ws/${ $('#editcep').val()}/json/`,
-                                        type: "GET",
-                                        success: function(data) {
-                                            $("#editrua").val(data.logradouro);
-                                            $("#editcomplemento").val(data.complemento);
-                                            $("#editbairro").val(data.bairro);
-                                        }
-                                    })
-                                }
-                            })
-
-
+                }
+            })
+            $('#editcep').keyup(function() {
+                if ($('#editcep ').val().length == 9) {
+                    $.ajax({
+                        url: `http://viacep.com.br/ws/${ $('#editcep').val()}/json/`,
+                        type: "GET",
+                        success: function(data) {
+                            $("#editrua").val(data.logradouro);
+                            $("#editcomplemento").val(data.complemento);
+                            $("#editbairro").val(data.bairro);
+                        }
                     })
+                }
+            })
+        })
     </script>
 </body>
 

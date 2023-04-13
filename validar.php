@@ -15,6 +15,7 @@ if ($login->rowCount()) {
 
     $_SESSION['login'] = $result['Login'];
     $_SESSION['email'] = $result['email'];
+    $_SESSION['id'] = $result['id'];
     echo 'usuario existe';
 } else {
     echo 'Erro bd';

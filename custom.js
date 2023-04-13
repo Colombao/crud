@@ -78,8 +78,8 @@ async function editUsuario(id) {
         document.getElementById("editnascimento").value = resposta['dados'].Nascimento;
         document.getElementById("editcpf").value = resposta['dados'].cpf;
         document.getElementById("editcep").value = resposta['dados'].Cep;
-        // document.getElementById("editrua").value = resposta['dados'].Rua;
-        // document.getElementById("editbairro").value = resposta['dados'].Bairro;
+        document.getElementById("editrua").value = resposta['dados'].Rua;
+        document.getElementById("editbairro").value = resposta['dados'].Bairro;
         document.getElementById("edittelefone").value = resposta['dados'].Telefone;
         document.getElementById("editcomplemento").value = resposta['dados'].complemento;
         document.getElementById("editnumero").value = resposta['dados'].Numero;

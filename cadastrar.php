@@ -42,7 +42,7 @@ if (empty($dados['nome'])) {
     $cad_usuario->bindParam(':complemento', $dados['complemento']);
     $cad_usuario->bindParam(':Numero', $dados['Numero']);
     $cad_usuario->bindParam(':Login', $dados['Login']);
-    $cad_usuario->bindParam(':Senha', $dados['Senha']);
+    $cad_usuario->bindParam(':Senha', $dados['Senha']); //colocando o md5 buga
     $cad_usuario->execute();
 
     if ($cad_usuario->rowCount()) {
