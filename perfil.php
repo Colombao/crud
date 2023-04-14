@@ -60,7 +60,11 @@
                                 'Voce consegiu ',
                                 'success'
 
-                            )
+                            ).then(function(result) {
+                                if (result.isConfirmed) {
+                                    window.location.href = 'perfilconfig.php'
+                                }
+                            })
                         } else {
                             Swal.fire(
                                 'Deu ruim',
