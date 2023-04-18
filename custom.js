@@ -107,6 +107,7 @@ if (formEditUser) {
             //document.getElementById("msgAlertErroEdit").innerHTML = resposta['msg'];
 
             // Fechar a janela modal
+            
             document.getElementById("msgAlerta").innerHTML = resposta['msg'];
             document.getElementById("msgAlertErroEdit").innerHTML = "";
             // Limpar o formulario

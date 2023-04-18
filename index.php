@@ -34,7 +34,7 @@
 						if (response == 'usuario existe') {
 							Swal.fire(
 								'Bom trabalho',
-								'Voce consegiu ',
+								' ',
 								'success'
 
 							).then(function(result) {

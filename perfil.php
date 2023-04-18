@@ -16,8 +16,9 @@
         <div class="d-flex justify-content-between align-items-center pt-3 pb-2">
             <h1 class="display-5 mb-2">Criar perfil</h1>
             <div class="float-right">
-                <button type="button" class="btn btn-outline-danger btn-sm"><a href=" index.php" style=" text-decoration: none; color:black;">Logout</a></button>
+                <a href=" index.php" style=" text-decoration: none; color:black;"><button type="button" class="btn btn-outline-danger btn-sm">Logout</button></a>
                 <a href=" home.php" style=" text-decoration: none; color:black;"><button type="button" class="btn btn-outline-info btn-sm"> Home</button></a>
+                <a href="perfilconfig.php" style=" text-decoration: none; color:black;"><button type="button" class="btn btn-outline-warning btn-sm"> Entrar</button></a>
             </div>
         </div>
     </div>
@@ -33,7 +34,9 @@
                 </div>
             </div>
         </form>
+
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -57,7 +60,7 @@
                         if (response == 'Salvo com sucesso!') {
                             Swal.fire(
                                 'Bom trabalho',
-                                'Voce consegiu ',
+                                'Perfil Criado Com Sucesso ',
                                 'success'
 
                             ).then(function(result) {

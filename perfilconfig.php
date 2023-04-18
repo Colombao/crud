@@ -27,6 +27,7 @@
             <div class="float-right">
                 <button type="button" class="btn btn-outline-danger btn-sm"><a href=" index.php" style=" text-decoration: none; color:black;">Logout</a></button>
                 <a href=" home.php" style=" text-decoration: none; color:black;"><button type="button" class="btn btn-outline-info btn-sm"> Home</button></a>
+                <a href=" perfil.php" style=" text-decoration: none; color:black;"><button type="button" class="btn btn-outline-info btn-sm">Criar perfil</button></a>
             </div>
         </div>
     </div>
@@ -40,35 +41,70 @@
             </tr>
         </thead>
     </table>
+
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#Perfil').DataTable({
-                "deferRender": true,
-                "ajax": "dbperfil.php",
-                "columns": [{
-                        "data": "id"
-                    },
-                    {
-                        "data": "datatables_id"
-                    },
-                    {
-                        "data": "perfil"
-                    },
-                    {
-                        "data": "acoes"
-                    }
-                ]
-            });
-
-            $('#Perfil').on('click', '.editar', function() {
-                var data = $('#Perfil').DataTable().row($(this).parents('tr')).data();
-                console.log(data);
-
-            });
-
-
-
+        let datatable = $('#Perfil').DataTable({
+            "deferRender": true,
+            "ajax": "dbperfil.php",
+            "columns": [{
+                    "data": "id"
+                },
+                {
+                    "data": "datatables_id"
+                },
+                {
+                    "data": "perfil"
+                },
+                {
+                    "data": "acoes"
+                }
+            ]
         });
+
+        async function editarperfil(id) {
+            let name = await fetch(`resgatarperfil.php?id=${id}`);
+            const nomeperfil = $(`#nome_perfil_${id}`).text();
+            name = await name.json();
+            console.log(name.perfil);
+            $(`#nome_perfil_${id}`).html(`<input type='text' id="edit_perfil_${id}" value="${name.perfil}"> <button class='salvar btn btn-outline-info' id="salvarperfil" onclick='salvar(${id})'>Salvar</button> <button class='salvar btn btn-outline-danger' id="voltar" onclick='voltar()'>Voltar</button>`)
+
+        }
+        async function salvar(id) {
+            const nomeperfil = $(`#edit_perfil_${id}`).val();
+            console.log(nomeperfil);
+            let save = await fetch(`salvar.php?id_perfil=${id}&perfil=${nomeperfil}`);
+            let data = await save.json();
+            console.log(data);
+            if (data.data.includes('sucesso')) {
+                Swal.fire(
+                    'Bom trabalho',
+                    data.data,
+                    'success'
+
+                ).then(function(result) {
+                    datatable.ajax.reload();
+
+                })
+                // } else if (data.data.includes('Não')) {
+                //     Swal.fire(
+                //         'Impossivel editar',
+                //         data.data,
+                //         'error'
+
+                //     )
+            } else {
+                Swal.fire(
+                    'Impossivel editar',
+                    data.data,
+                    'error'
+
+                )
+            }
+        }
+        async function voltar() {
+            datatable.ajax.reload();
+        }
+
 
         function deletarperfil(id) {
             $.ajax({
@@ -78,12 +114,24 @@
                     id_perfil: id
                 },
                 success: function(data) {
-                    Swal.fire(
-                        'Bom trabalho',
-                        data,
-                        'success'
+                    if (data == 'Usuario apagado com sucesso') {
+                        Swal.fire(
+                            'Bom trabalho',
+                            data,
+                            'success'
 
-                    )
+                        ).then(function(result) {
+                            datatable.ajax.reload();
+
+                        })
+                    } else {
+                        Swal.fire(
+                            'Impossivel excluir',
+                            ' Voce não é o dono deste perfil',
+                            'error'
+
+                        )
+                    }
                 }
             });
         }

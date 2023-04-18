@@ -48,7 +48,7 @@ if (empty($dados['nome'])) {
     if ($cad_usuario->rowCount()) {
         $retorna = ['status' => true, 'msg' => "<div class='alert alert-succes' role='alert'>Usuario cadastrado com sucesso</div>"];
     } else {
-        $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Usuário não cadastrado com sucesso!</div>"];
+        $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Dados já existem!   </div>"];
     }
 }
 echo json_encode($retorna);

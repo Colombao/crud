@@ -129,7 +129,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-outline-success btn-sm" value="Cadastrar">Cadastrar</button>
+                        <button type="submit" class="btn btn-outline-success btn-sm" id="CadUsuario" value="Cadastrar">Cadastrar</button>
                     </form>
                 </div>
             </div>
@@ -297,6 +297,7 @@
                     })
                 }
             })
+
             $('#editcep').keyup(function() {
                 if ($('#editcep ').val().length == 9) {
                     $.ajax({
