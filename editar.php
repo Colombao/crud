@@ -3,7 +3,6 @@
 include_once "conexao.php";
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
 if (empty($dados['id'])) {
     $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Tente mais tarde!</div>"];
 } elseif (empty($dados['nome'])) {
@@ -18,14 +17,16 @@ if (empty($dados['id'])) {
     $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Cep!</div>"];
 } elseif (empty($dados['Rua'])) {
     $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Rua!</div>"];
-} elseif (empty($dados['Bairro'])) {
-    $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Bairro!</div>"];
-} elseif (empty($dados['Nascimento'])) {
-    $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Nascimento!</div>"];
 } elseif (empty($dados['Numero'])) {
     $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Numero!</div>"];
+} elseif (empty($dados['Nascimento'])) {
+    $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Nascimento!</div>"];
+} elseif (empty($dados['Bairro'])) {
+    $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Bairro!</div>"];
+} elseif (empty($dados['profile_id'])) {
+    $retorna = ['status' => false, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessario selecionar um perfil!</div>"];
 } else {
-    $query_usuario = "UPDATE datatables SET nome=:nome, email=:email, Telefone=:Telefone, Cpf=:Cpf, Cep=:Cep, Rua=:Rua, Bairro=:Bairro, Nascimento=:Nascimento, complemento=:complemento, Numero=:Numero WHERE id=:id";
+    $query_usuario = "UPDATE datatables SET nome=:nome, email=:email, Telefone=:Telefone, Cpf=:Cpf, Cep=:Cep, Rua=:Rua, Bairro=:Bairro, Nascimento=:Nascimento, complemento=:complemento, Numero=:Numero, profile_id=:profile_id WHERE id=:id;";
     $edit_usuario = $conn->prepare($query_usuario);
     $edit_usuario->bindParam(':nome', $dados['nome']);
     $edit_usuario->bindParam(':email', $dados['email']);
@@ -38,6 +39,7 @@ if (empty($dados['id'])) {
     $edit_usuario->bindParam(':complemento', $dados['complemento']);
     $edit_usuario->bindParam(':Numero', $dados['Numero']);
     $edit_usuario->bindParam(':id', $dados['id']);
+    $edit_usuario->bindParam(':profile_id', $dados['profile_id']);
 
     if ($edit_usuario->execute()) {
         $retorna = ['status' => true, 'msg' => "<div class='alert alert-success' role='alert'>Usuário editado com sucesso!</div>"];

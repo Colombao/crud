@@ -9,9 +9,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+</head>
 
 <body>
+    <?php
+    include "conexao.php";
+
+    $stmt = $conn->prepare("SELECT perfil FROM perfil");
+    $stmt->execute();
+    $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Bootstrap Sidebar</h3>
+
+        </div>
+    </nav>
     <div class="container">
         <div class="d-flex justify-content-between align-items-center pt-3 pb-2">
             <h1 class="display-5 mb-2">Listar Usuários</h1>
@@ -34,6 +47,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Telefone</th>
+                <th>Perfil</th>
             </tr>
         </thead>
     </table>
@@ -115,25 +129,47 @@
                                 <input type="text" name="Numero" class="form-control" id="NumeroCad" placeholder="Numero">
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Login</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="Login" class="form-control" id="LoginCad" placeholder="Login">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Senha</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="Senha" class="form-control" id="SenhaCad" placeholder="Senha">
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-outline-success btn-sm" id="CadUsuario" value="Cadastrar">Cadastrar</button>
-                    </form>
                 </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Login</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="Login" class="form-control" id="LoginCad" placeholder="Login">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Senha</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="Senha" class="form-control" id="SenhaCad" placeholder="Senha">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Perfil</label>
+                    <div class="col-sm-10">
+                        <select data-placeholder="Escolha..." name="profile_id" id="cadperfil" class="form-control obrigatorios chosen-select" tabindex="2" required>
+                            <option selected value="">Escolha...</option>
+                            <?php
+
+                            try {
+                                $stmt->execute();
+                            } catch (PDOException $e) {
+                                $e->getMessage();
+                            }
+
+                            while ($perfil = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                echo '<option value="' . $perfil['perfil'] . '">' . $perfil['perfil'] . '</option>';
+                            }
+                            ?>
+
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-outline-success btn-sm" id="CadUsuario" value="Cadastrar">Cadastrar</button>
+                </form>
             </div>
         </div>
+    </div>
     </div>
     <div class="modal fade" id="visUsuarioModal" tabindex="-1" aria-labelledby="visUsuarioModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -173,6 +209,9 @@
 
                         <dt class="col-sm-3">complemento</dt>
                         <dd class="col-sm-9"><span id="complementoUsuario"></span></dd>
+
+                        <dt class="col-sm-3">Perfil</dt>
+                        <dd class="col-sm-9"><span id="perfilUsuario"></span></dd>
 
                     </dl>
                 </div>
@@ -245,6 +284,12 @@
                                 <input type="text" name="Telefone" class="form-control Telefone" id="edittelefone" placeholder="Telefone">
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Numero</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="Numero" class="form-control Complemento" id="editnumero" placeholder="Numero">
+                            </div>
+                        </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Complemento</label>
@@ -253,9 +298,24 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Numero</label>
+                            <label class="col-sm-2 col-form-label">Perfil</label>
                             <div class="col-sm-10">
-                                <input type="text" name="Numero" class="form-control" id="editnumero" placeholder="Numero">
+                                <select data-placeholder="Escolha..." name="profile_id" id="editperfil" class="form-control obrigatorios chosen-select" tabindex="2" required>
+                                    <option selected value="editperfil">Escolha...</option>
+                                    <?php
+
+                                    try {
+                                        $stmt->execute();
+                                    } catch (PDOException $e) {
+                                        $e->getMessage();
+                                    }
+
+                                    while ($perfil = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                        echo '<option value="' . $perfil['perfil'] . '">' . $perfil['perfil'] . '</option>';
+                                    }
+                                    ?>
+
+                                </select>
                             </div>
                         </div>
 
@@ -297,7 +357,6 @@
                     })
                 }
             })
-
             $('#editcep').keyup(function() {
                 if ($('#editcep ').val().length == 9) {
                     $.ajax({
@@ -316,3 +375,6 @@
 </body>
 
 </html>
+
+
+<!-- https://bbbootstrap.com/snippets/bootstrap-5-sidebar-menu-toggle-button-34132202 -->

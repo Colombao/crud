@@ -70,7 +70,7 @@
                             })
                         } else {
                             Swal.fire(
-                                'Deu ruim',
+                                'Já existe um perfil com este nome',
                                 response,
                                 'error'
                             )

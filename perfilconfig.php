@@ -31,111 +31,163 @@
             </div>
         </div>
     </div>
+
     <table id="Perfil" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>ID Usuario</th>
                 <th>Nome</th>
                 <th>Ações</th>
             </tr>
         </thead>
     </table>
-
-    <script type="text/javascript">
-        let datatable = $('#Perfil').DataTable({
-            "deferRender": true,
-            "ajax": "dbperfil.php",
-            "columns": [{
-                    "data": "id"
-                },
-                {
-                    "data": "datatables_id"
-                },
-                {
-                    "data": "perfil"
-                },
-                {
-                    "data": "acoes"
-                }
-            ]
-        });
-
-        async function editarperfil(id) {
-            let name = await fetch(`resgatarperfil.php?id=${id}`);
-            const nomeperfil = $(`#nome_perfil_${id}`).text();
-            name = await name.json();
-            console.log(name.perfil);
-            $(`#nome_perfil_${id}`).html(`<input type='text' id="edit_perfil_${id}" value="${name.perfil}"> <button class='salvar btn btn-outline-info' id="salvarperfil" onclick='salvar(${id})'>Salvar</button> <button class='salvar btn btn-outline-danger' id="voltar" onclick='voltar()'>Voltar</button>`)
-
-        }
-        async function salvar(id) {
-            const nomeperfil = $(`#edit_perfil_${id}`).val();
-            console.log(nomeperfil);
-            let save = await fetch(`salvar.php?id_perfil=${id}&perfil=${nomeperfil}`);
-            let data = await save.json();
-            console.log(data);
-            if (data.data.includes('sucesso')) {
-                Swal.fire(
-                    'Bom trabalho',
-                    data.data,
-                    'success'
-
-                ).then(function(result) {
-                    datatable.ajax.reload();
-
-                })
-                // } else if (data.data.includes('Não')) {
-                //     Swal.fire(
-                //         'Impossivel editar',
-                //         data.data,
-                //         'error'
-
-                //     )
-            } else {
-                Swal.fire(
-                    'Impossivel editar',
-                    data.data,
-                    'error'
-
-                )
-            }
-        }
-        async function voltar() {
-            datatable.ajax.reload();
-        }
+    <div class="modal fade" id="atribuirForm" tabindex="-1" aria-labelledby="atribuirFormLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="atribuirFormLabel">Atribuir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span id="msgAlertErroCad"></span>
+                    <form id="atribuirForm">
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Id</label>
+                            <div class="col-sm-10">
+                                <input type="text" maxlength="4" name="perfilId" class="form-control cep" id="idUsuario" placeholder="Id do Usuario">
+                            </div>
+                        </div>
 
 
-        function deletarperfil(id) {
-            $.ajax({
-                url: 'deleteperfil.php',
-                method: 'POST',
-                data: {
-                    id_perfil: id
-                },
-                success: function(data) {
-                    if (data == 'Usuario apagado com sucesso') {
-                        Swal.fire(
-                            'Bom trabalho',
-                            data,
-                            'success'
+                        <button type="submit" class="btn btn-outline-warning btn-sm" value="atribuir">Confirmar</button>
+                    </form>
 
-                        ).then(function(result) {
+                    <script type="text/javascript">
+                        let datatable = $('#Perfil').DataTable({
+                            "deferRender": true,
+                            "ajax": "dbperfil.php",
+                            "columns": [{
+                                    "data": "id_perfil"
+                                },
+                                {
+                                    "data": "perfil"
+                                },
+                                {
+                                    "data": "acoes"
+                                }
+                            ]
+                        });
+                        async function atribuirPerfil(id_perfil) {
+                            const dados = await fetch('vis2.php?id_perfil=' + id_perfil);
+                            const resposta = await dados.json();
+                            console.log(resposta.dados.perfil);
+                            $('#atribuirForm').on('submit', function(event) {
+                                event.preventDefault();
+                                var data = {
+                                    perfil: resposta.dados.perfil,
+                                    perfilId: $('[name="perfilId"]').val()
+                                };
+                                console.log(data);
+                                $.ajax({
+                                    url: 'atribuir.php',
+                                    method: 'POST',
+                                    data: data,
+                                    success: function(response) {
+                                        if (response == 'Usuario atribuido com sucesso') {
+                                            Swal.fire(
+                                                'Bom trabalho',
+                                                data,
+                                                'success'
+
+                                            ).then(function(result) {
+                                                location.reload();
+
+                                            })
+                                        } else {
+                                            Swal.fire(
+                                                'Impossivel excluir',
+                                                ' Erro ao cadastrar',
+                                                'error',
+                                            ).then(function(result) {
+                                                location.reload();
+
+                                            })
+                                        }
+                                    }
+                                });
+                            })
+                        }
+                        $('.Cep').mask('000');
+                        $('.perfil').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
+
+                        async function editarperfil(id_perfil) {
+                            let name = await fetch(`resgatarperfil.php?id_perfil=${id_perfil}`);
+                            const nomeperfil = $(`#nome_perfil_${id_perfil}`).text();
+                            name = await name.json();
+                            console.log(name.perfil);
+                            $(`#nome_perfil_${id_perfil}`).html(`<input type='text' id="edit_perfil_${id_perfil}" value="${name.perfil}"><div><button class='salvar btn btn-outline-info' id="salvarperfil" onclick='salvar(${id_perfil})'>Salvar</button> <button class='salvar btn btn-outline-danger' id="voltar" onclick='voltar()'>Voltar</button></div>`)
+
+                        }
+                        async function salvar(id_perfil) {
+                            const nomeperfil = $(`#edit_perfil_${id_perfil}`).val();
+                            // console.log(nomeperfil);
+                            let save = await fetch(`salvar.php?id_perfil=${id_perfil}&perfil=${nomeperfil}`);
+                            let data = await save.json();
+                            // console.log(data);
+                            if (data.data.includes('sucesso')) {
+                                Swal.fire(
+                                    'Bom trabalho',
+                                    data.data,
+                                    'success'
+
+                                ).then(function(result) {
+                                    datatable.ajax.reload();
+
+                                })
+
+                            } else {
+                                Swal.fire(
+                                    'Impossivel editar',
+                                    data.data,
+                                    'error'
+
+                                )
+                            }
+                        }
+                        async function voltar() {
                             datatable.ajax.reload();
+                        }
 
-                        })
-                    } else {
-                        Swal.fire(
-                            'Impossivel excluir',
-                            ' Voce não é o dono deste perfil',
-                            'error'
 
-                        )
-                    }
-                }
-            });
-        }
-    </script>
+                        function deletarperfil(id_perfil) {
+                            $.ajax({
+                                url: 'deleteperfil.php',
+                                method: 'POST',
+                                data: {
+                                    id_perfil: id_perfil
+                                },
+                                success: function(data) {
+                                    if (data == 'Usuario apagado com sucesso') {
+                                        Swal.fire(
+                                            'Bom trabalho',
+                                            data,
+                                            'success'
+
+                                        ).then(function(result) {
+                                            datatable.ajax.reload();
+
+                                        })
+                                    } else {
+                                        Swal.fire(
+                                            'Impossivel excluir',
+                                            data,
+                                            'error',
+                                        )
+                                    }
+                                }
+                            });
+                        }
+                    </script>
 </body>
 
 </html>

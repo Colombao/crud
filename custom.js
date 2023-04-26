@@ -1,10 +1,19 @@
  $(document).ready(function() {
      $('#usuarios').DataTable({
-         "processing": true,
-            "serverSide": true,
-            "ajax": {
-            "url": "pesquisa.php",
-            "type": "POST"         }
+        // //  "processing": true,
+        //     "serverSide": true,
+        //     "ajax": {
+        //     "url": "pesquisa.php",
+        //     "type": "POST"         }
+        ajax:'pesquisa.php',
+        columns:[
+            {data:"Ações"},
+            {data:"ID"},
+            {data:"Nome"},
+            {data:"Email"},
+            {data:"Telefone"},
+            {data:"Perfil"}
+        ]
     });
  });
 
@@ -41,7 +50,6 @@ async function visualizar(id) {
     if (resposta['status']) {
         const visModal = new bootstrap.Modal(document.getElementById("visUsuarioModal"));
         visModal.show();
-
         document.getElementById("idUsuario").innerHTML = resposta['dados'].id;
         document.getElementById("nomeUsuario").innerHTML = resposta['dados'].nome;
         document.getElementById("emailUsuario").innerHTML = resposta['dados'].email;
@@ -52,7 +60,8 @@ async function visualizar(id) {
         document.getElementById("bairroUsuario").innerHTML = resposta['dados'].Bairro;
         document.getElementById("nascimentoUsuario").innerHTML = resposta['dados'].Nascimento;
         document.getElementById("complementoUsuario").innerHTML = resposta['dados'].complemento;
-
+        document.getElementById("perfilUsuario").innerHTML = resposta['dados'].profile_id;
+        
         document.getElementById("msgAlerta").innerHTML = "";
     } else {
         document.getElementById("msgAlerta").innerHTML = resposta['msg'];
@@ -61,10 +70,10 @@ async function visualizar(id) {
 
 const editModal = new bootstrap.Modal(document.getElementById("editUsuarioModal"));
 async function editUsuario(id) {
-
+    console.log('Chego aq');
     const dados = await fetch('visualizar.php?id=' + id);
     const resposta = await dados.json();
-
+    console.log('Chego aq2');
     if (resposta['status']) {
         console.log('status');
         document.getElementById("msgAlertErroEdit").innerHTML = "";
@@ -77,12 +86,14 @@ async function editUsuario(id) {
         document.getElementById("editemail").value = resposta['dados'].email;
         document.getElementById("editnascimento").value = resposta['dados'].Nascimento;
         document.getElementById("editcpf").value = resposta['dados'].cpf;
-        document.getElementById("editcep").value = resposta['dados'].Cep;
+        document.getElementById("editcep").value = resposta['dados'].cep;
         document.getElementById("editrua").value = resposta['dados'].Rua;
         document.getElementById("editbairro").value = resposta['dados'].Bairro;
+        document.getElementById("editnumero").value = resposta['dados'].Numero;
         document.getElementById("edittelefone").value = resposta['dados'].Telefone;
         document.getElementById("editcomplemento").value = resposta['dados'].complemento;
-        document.getElementById("editnumero").value = resposta['dados'].Numero;
+        document.getElementById("editperfil").value = resposta['dados'].profile_id;
+
     } else {
         document.getElementById("msgAlerta").innerHTML = resposta['msg'];
         console.log(resposta);

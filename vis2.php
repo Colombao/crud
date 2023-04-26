@@ -3,14 +3,13 @@
 
 include_once "conexao.php";
 
-$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
+$id = filter_input(INPUT_GET, "id_perfil", FILTER_SANITIZE_NUMBER_INT);
 
 
 if (!empty($id)) {
-    $query_usuario = "SELECT id, nome, email, Telefone, cep, cpf, Rua, Numero, Bairro, Nascimento, complemento, profile_id FROM datatables WHERE id=:id LIMIT 1";
-    // SELECT id, nome, email, Telefone, cep, cpf, Rua, Numero, Bairro, Nascimento, complemento, profile_id FROM datatables WHERE id=:id LIMIT 1
+    $query_usuario = "SELECT perfil FROM perfil WHERE id_perfil=:id_perfil LIMIT 1";
     $result_usuario = $conn->prepare($query_usuario);
-    $result_usuario->bindParam(':id', $id);
+    $result_usuario->bindParam(':id_perfil', $id);
     $result_usuario->execute();
 
     if (($result_usuario) and ($result_usuario->rowCount() != 0)) {
