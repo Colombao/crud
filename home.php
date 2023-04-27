@@ -8,7 +8,10 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -19,20 +22,49 @@
     $stmt->execute();
     $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Bootstrap Sidebar</h3>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <span class="close-btn" onclick="closeSidebar()" style="font-size:30px"><i class="bi bi-arrow-bar-left"></i></span>
+        <h3 class="text-center">Menu</h3>
+        <ul class="accordion">
+            <li></li>
+            <li>
+                <a style=" text-decoration: none; color:black;" href="#" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#submenu-users">
+                    <i class="fa fa-users"></i> Páginas
+                </a>
+                <ul id="submenu-users" class="accordion-collapse collapse">
+                    <li><a style=" text-decoration: none; color:black;" href="home.php">Home</a></li>
+                    <li><a style=" text-decoration: none; color:black;" href="perfilconfig.php">Perfil</a></li>
+                </ul>
+            </li>
+            <li>
+                <a style=" text-decoration: none; color:black;" href="#" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#submenu-pages">
+                    <i class="fa fa-home"></i> Ações
+                </a>
+                <ul id="submenu-pages" class="accordion-collapse collapse">
+                    <li> <span type="button" data-bs-toggle="modal" data-bs-target="#cadUsuarioModal">Cadastrar</span>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a style=" text-decoration: none; color:black;" href="#" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#submenu-options">
+                    <i class="fa fa-users"></i> Sair
+                </a>
+                <ul id="submenu-options" class="accordion-collapse collapse">
+                    <li> <span type="button"><a href=" index.php" style=" text-decoration: none; color:black;">Logout</a></span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
-        </div>
-    </nav>
+    <div class="position-absolute">
+        <span class="open-btn" onclick="openSidebar()" style="font-size:30px"><i class="bi bi-arrow-bar-right"></i></span>
+    </div>
     <div class="container">
         <div class="d-flex justify-content-between align-items-center pt-3 pb-2">
-            <h1 class="display-5 mb-2">Listar Usuários</h1>
-            <div class="float-right">
-                <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#cadUsuarioModal">Cadastrar</button>
-                <button type="button" class="btn btn-outline-danger btn-sm"><a href=" index.php" style=" text-decoration: none; color:black;">Logout</a></button>
-                <a href=" perfil.php" style=" text-decoration: none; color:black;"><button type="button" class="btn btn-outline-info btn-sm">Criar perfil</button></a>
-            </div>
+
+            <h1 class=" display-5 mb-2">Listar Usuários</h1>
         </div>
     </div>
 
@@ -335,6 +367,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="custom.js"></script>
     <script>
+        function closeSidebar() {
+            document.querySelector('.sidebar').style.width = "0";
+            document.querySelector('.main').style.marginLeft = "0";
+        }
+
+        function openSidebar() {
+            document.querySelector('.sidebar').style.width = "200px";
+            document.querySelector('.main').style.marginLeft = "200px";
+        }
         $(document).ready(function() {
 
             $('.Cpf').mask('000.000.000-00', {
@@ -343,6 +384,7 @@
             $('.Telefone').mask('(00) 00000-0000');
             $('.Cep').mask('00000-000');
             $('.Nascimento').mask('00/00/0000');
+
 
             $('#CepCad').keyup(function() {
                 if ($('#CepCad').val().length == 9) {

@@ -152,3 +152,12 @@ async function apagarUsuario(id) {
         }
     }
 }
+function closeSidebar() {
+    document.querySelector('.sidebar').style.width = "0";
+    document.querySelector('.main').style.marginLeft = "0";
+}
+
+function openSidebar() {
+    document.querySelector('.sidebar').style.width = "200px";
+    document.querySelector('.main').style.marginLeft = "200px";
+}
