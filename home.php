@@ -332,8 +332,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Perfil</label>
                             <div class="col-sm-10">
-                                <select data-placeholder="Escolha..." name="profile_id" id="editperfil" class="form-control obrigatorios chosen-select" tabindex="2" required>
-                                    <option selected value="editperfil">Escolha...</option>
+                                <select name="profile_id" id="editperfil" class="form-control obrigatorios chosen-select" tabindex="2" required>
                                     <?php
 
                                     try {
